@@ -38,7 +38,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		msg := tgbotapi.NewVenue(
 			update.Message.Chat.ID,
 			"lote 636",
-			"*(tocar el mapa para abrir y navegar)*",
+			"(tocar el mapa para abrir y navegar)",
 			-34.3507263,
 			-58.7637032,
 		)
