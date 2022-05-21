@@ -9,7 +9,7 @@ import (
 	"github.com/joeshaw/envdecode"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming request")
 
 	var cfg struct {
@@ -31,12 +31,24 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("Hi there %s", update.Message.From.UserName))
-	msg.ReplyToMessageID = update.Message.MessageID
+	// prueba de concepto:
+	// si empieza con "lote <numero>" devuelve la ubicacion,
+	// sino tira la consulta a openAI
+	if update.Message.Text == "/lote 636" {
+		msg := tgbotapi.NewVenue(
+			update.Message.Chat.ID,
+			"lote 636",
+			"*(tocar el mapa para abrir y navegar)*",
+			-34.3507263,
+			-58.7637032,
+		)
 
-	_, err = bot.Send(msg)
-	if err != nil {
-		log.Fatal(err)
+		msg.ReplyToMessageID = update.Message.MessageID
+
+		_, err = bot.Send(msg)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	fmt.Fprint(w, "OK")
