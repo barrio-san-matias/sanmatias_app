@@ -20,16 +20,19 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 	loteParam := r.URL.Query().Get("lote")
 	if loteParam == "" {
 		writeError(w, "paremetro lote es obligatorio", http.StatusBadRequest)
+		return
 	}
 
 	numLote, err := strconv.ParseInt(loteParam, 10, 16)
 	if err != nil {
 		writeError(w, "paremetro lote debe ser un numero valido", http.StatusBadRequest)
+		return
 	}
 
 	loteCoords := localization.GetCoords(int16(numLote))
 	if loteCoords == (localization.LatLng{}) {
 		writeError(w, "lote no encontrado", http.StatusNotFound)
+		return
 	}
 
 	response := &MapResponse{
