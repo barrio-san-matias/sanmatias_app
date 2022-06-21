@@ -34,6 +34,7 @@ export default function PageWithJSbasedForm() {
   return (
     <div className="container">
       <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
@@ -50,7 +51,10 @@ export default function PageWithJSbasedForm() {
         <button type="submit">🧭 Ir</button>
       </form>
 
-    <div className="footer">version beta - hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a></div>
+      <div className="footer">
+        <div>hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a></div>
+        <div>version de prueba - beta v0.0.1</div> 
+      </div>
     </div>
   )
 }
