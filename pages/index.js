@@ -41,7 +41,7 @@ export default function PageWithJSbasedForm() {
        </h1>
 
       <p className={styles.description}>
-        A que lote vas? 
+        A qué lote vas? 
       </p>
 
       <form onSubmit={handleSubmit}>
