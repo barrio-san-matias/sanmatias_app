@@ -28,24 +28,24 @@ export default function PageWithJSbasedForm() {
   }
   return (
     <div className="container">
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
+      </Head>
       <h1 className={styles.title}>
-        Form{' '}
-        <Link href="/">
-          <a>with</a>
-        </Link>{' '}
-        JavaScript.
-      </h1>
+        Mapa de San Matías
+       </h1>
 
       <p className={styles.description}>
-        Get started by looking at{' '}
-        <code className={styles.code}>pages/js-from.js</code>
+        A que lote vas? 
       </p>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="lote">Lote</label>
-        <input type="text" id="lote" name="lote" required />
-        <button type="submit">Submit</button>
+        <label htmlFor="lote"></label>
+        <input type="number" id="lote" name="lote" required />
+        <button type="submit">🧭 Ir</button>
       </form>
+
+    <div class="footer">version beta - hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a></div>
     </div>
   )
 }
