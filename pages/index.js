@@ -46,9 +46,8 @@ export default function PageWithJSbasedForm() {
       </p>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="lote"></label>
         <input type="number" id="lote" name="lote" required />
-        <button type="submit">🧭 Ir</button>
+        <button type="submit">➢</button>
       </form>
 
       <div className="footer">
