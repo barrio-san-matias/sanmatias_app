@@ -21,10 +21,15 @@ export default function PageWithJSbasedForm() {
       method: 'GET',
     })
 
+    if (!response.ok) {
+      const text = await response.text()
+      window.alert(text)
+    } else {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json()
-    window.location.replace(result.MapURL);
+     window.location.replace(result.MapURL);
+    }
   }
   return (
     <div className="container">
@@ -45,7 +50,7 @@ export default function PageWithJSbasedForm() {
         <button type="submit">🧭 Ir</button>
       </form>
 
-    <div class="footer">version beta - hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a></div>
+    <div className="footer">version beta - hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a></div>
     </div>
   )
 }
