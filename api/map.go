@@ -18,26 +18,39 @@ type MapResponse struct {
 // http://localhost:3000/api/map?lote=636
 func MapHandler(w http.ResponseWriter, r *http.Request) {
 	loteParam := r.URL.Query().Get("lote")
-	if loteParam == "" {
-		writeError(w, "paremetro lote es obligatorio", http.StatusBadRequest)
+	poiParam := r.URL.Query().Get("poi")
+	if loteParam == "" && poiParam == "" {
+		writeError(w, "paremetro lote o poi es obligatorio", http.StatusBadRequest)
 		return
 	}
 
-	numLote, err := strconv.ParseInt(loteParam, 10, 16)
-	if err != nil {
-		writeError(w, "paremetro lote debe ser un numero valido", http.StatusBadRequest)
-		return
+	response := &MapResponse{}
+	if loteParam != "" {
+		numLote, err := strconv.ParseInt(loteParam, 10, 16)
+		if err != nil {
+			writeError(w, "paremetro lote debe ser un numero valido", http.StatusBadRequest)
+			return
+		}
+
+		coords := localization.GetCoords(int16(numLote))
+		if coords == (localization.LatLng{}) {
+			writeError(w, "lote no encontrado", http.StatusNotFound)
+			return
+		}
+
+		response.Coords = coords
+		response.MapURL = fmt.Sprintf(drivingPattern, coords.Latitude, coords.Longitude)
 	}
 
-	loteCoords := localization.GetCoords(int16(numLote))
-	if loteCoords == (localization.LatLng{}) {
-		writeError(w, "lote no encontrado", http.StatusNotFound)
-		return
-	}
+	if poiParam != "" {
+		coords := localization.GetPOICoords(poiParam)
+		if coords == (localization.LatLng{}) {
+			writeError(w, "punto de interes no encontrado", http.StatusNotFound)
+			return
+		}
 
-	response := &MapResponse{
-		Coords: loteCoords,
-		MapURL: fmt.Sprintf(drivingPattern, loteCoords.Latitude, loteCoords.Longitude),
+		response.Coords = coords
+		response.MapURL = fmt.Sprintf(drivingPattern, coords.Latitude, coords.Longitude)
 	}
 
 	writeResponse(w, response)

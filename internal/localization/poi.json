@@ -1,0 +1,16 @@
+[
+	{ 
+    "name": "sum",
+    "coords": { 
+      "longitude": -58.756494, 
+      "latitude": -34.354402 
+    } 
+  },
+  { 
+    "name": "adm",
+    "coords": { 
+      "longitude": -58.753411, 
+      "latitude": -34.344533 
+    } 
+  }
+]	

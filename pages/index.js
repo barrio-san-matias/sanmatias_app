@@ -54,19 +54,19 @@ export default function PageWithJSbasedForm() {
       </p>
 
       <form onSubmit={searchLote}>
-        <input type="number" id="lote" name="lote" required />
+        <input type="number" id="lote" name="lote" required placeholder="número"/>
         <button type="submit">buscar</button>
       </form>
 
-      <div className={styles.poi}>
-        <p className={styles.description}>
-          otros puntos de interes: 
+      <div className="poiContainer">
+        <p className={styles.descriptionPOI}>
+          otros puntos de interés: 
         </p>
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="sum">SUM</button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="poi" className="adm">Administracion</button>
+          <button type="submit" id="poi" className="adm">Administración</button>
         </form>
 
       </div>
