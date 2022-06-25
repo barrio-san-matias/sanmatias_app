@@ -54,7 +54,12 @@
 .description {
   margin: 4rem 0;
   line-height: 1.5;
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+
+.descriptionPOI {
+    margin-top: 30px;
+    text-align: center;
 }
 
 .code {
