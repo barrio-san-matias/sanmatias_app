@@ -58,9 +58,9 @@ export default function PageWithJSbasedForm() {
       <div className={styles.description}>
         <div id={styles.pregunta}> A qué lote vas? </div>
         <div id="velmax">
-          <span id="multas"> ⚠️  Evitá multas</span>
-          <span id="autos"> 🚙  Autos: boulevard <span class="km">50</span> - calles <span class="km">30</span></span>
-          <span id="camiones"> 🚚 Camiones: boulevard <span class="km">30</span> - calles <span class="km">20</span></span>
+          <span id="multas">⚠️  Evitá multas, velocidad máxima:</span>
+          <span id="autos">🚙 Autos: boulevard <span class="km">50</span> - calles <span class="km">30</span></span>
+          <span id="camiones">🚚 Camiones: boulevard <span class="km">30</span> - calles <span class="km">20</span></span>
         </div>
       </div>
 
