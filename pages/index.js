@@ -52,7 +52,7 @@ export default function PageWithJSbasedForm() {
         Mapa de San Matías
       </h1>
     <div id="logo">
-          <Image alt="logo sm" src={logosm} width={80} height={40} />
+          <Image alt="logo sm" src={logosm} width={100} height={50} />
     </div>
 
       <div className={styles.description}>
