@@ -1,5 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import logosm from '../public/logosm.png'
+import Image from 'next/image'
+
 
 export default function PageWithJSbasedForm() {
   const searchLote = async (event) => {
@@ -48,10 +51,18 @@ export default function PageWithJSbasedForm() {
       <h1 className={styles.title}>
         Mapa de San Matías
       </h1>
+    <div id="logo">
+          <Image alt="logo sm" src={logosm} width={100} height={50} />
+    </div>
 
-      <p className={styles.description}>
-        A qué lote vas? 
-      </p>
+      <div className={styles.description}>
+        <div id={styles.pregunta}> A qué lote vas? </div>
+        <div id="velmax">
+          <span id="multas">⚠️  Evitá multas, velocidad máxima:</span>
+          <span id="autos">🚙 Autos: boulevard <span class="km">50</span> - calles <span class="km">30</span></span>
+          <span id="camiones">🚚 Camiones: boulevard <span class="km">30</span> - calles <span class="km">20</span></span>
+        </div>
+      </div>
 
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
@@ -73,7 +84,7 @@ export default function PageWithJSbasedForm() {
 
       <div className="footer">
         <div>🌓 Hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a> 🌓</div>
-        <div>versión v0.0.2</div> 
+        <div>versión v0.1.1</div> 
       </div>
     </div>
   )
