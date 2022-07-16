@@ -52,7 +52,11 @@
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 2rem 0;
+  margin-bottom: 1rem;
+  }
+
+.description #pregunta {
   line-height: 1.5;
   font-size: 2rem;
 }
@@ -109,10 +113,9 @@
   line-height: 1.5;
 }
 
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
+
+
+
 
 @media (max-width: 600px) {
   .grid {
