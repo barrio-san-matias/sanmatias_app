@@ -79,6 +79,9 @@ export default function PageWithJSbasedForm() {
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="adm">Administración</button>
         </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="servicios">Área de Servicios</button>
+        </form>
 
       </div>
 
