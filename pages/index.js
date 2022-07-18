@@ -79,12 +79,15 @@ export default function PageWithJSbasedForm() {
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="adm">Administración</button>
         </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="servicios">Área de Servicios</button>
+        </form>
 
       </div>
 
       <div className="footer">
         <div>🌓 Hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a> 🌓</div>
-        <div>versión v0.1.1</div> 
+        <div>versión v0.1.2</div> 
       </div>
     </div>
   )

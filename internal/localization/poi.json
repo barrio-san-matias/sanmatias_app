@@ -12,5 +12,12 @@
       "longitude": -58.753411, 
       "latitude": -34.344533 
     } 
+  },
+  { 
+    "name": "servicios",
+    "coords": { 
+      "longitude": -58.747063, 
+      "latitude": -34.352686 
+    } 
   }
 ]	
