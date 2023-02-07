@@ -90,7 +90,7 @@ export default function PageWithJSbasedForm() {
 
       <div className="footer">
         <div>🌓 Hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a> 🌓</div>
-        <div>versión v0.1.4</div> 
+        <div>versión v0.1.5</div> 
       </div>
     </div>
   )
