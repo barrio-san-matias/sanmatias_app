@@ -74,6 +74,9 @@ export default function PageWithJSbasedForm() {
           otros puntos de interés: 
         </p>
         <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="buffet">Restaurante y Proveeduría</button>
+        </form>
+        <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="sum">SUM</button>
         </form>
         <form onSubmit={searchPOI}>
@@ -87,7 +90,7 @@ export default function PageWithJSbasedForm() {
 
       <div className="footer">
         <div>🌓 Hecho por <a href="mailto:notjorge@protonmail.com">notjorge@protonmail.com</a> 🌓</div>
-        <div>versión v0.1.4</div> 
+        <div>versión v0.1.5</div> 
       </div>
     </div>
   )

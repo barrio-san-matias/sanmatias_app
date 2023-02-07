@@ -1,5 +1,5 @@
 [
-	{ 
+  { 
     "name": "sum",
     "coords": { 
       "longitude": -58.756494, 
@@ -18,6 +18,13 @@
     "coords": { 
       "longitude": -58.747063, 
       "latitude": -34.352686 
+    } 
+  },
+  { 
+    "name": "buffet",
+    "coords": { 
+      "longitude": -58.7570586, 
+      "latitude": -34.3552846 
     } 
   }
 ]	
