@@ -74,6 +74,9 @@ export default function PageWithJSbasedForm() {
           otros puntos de interés: 
         </p>
         <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="buffet">Restaurante y Proveeduría</button>
+        </form>
+        <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="sum">SUM</button>
         </form>
         <form onSubmit={searchPOI}>
