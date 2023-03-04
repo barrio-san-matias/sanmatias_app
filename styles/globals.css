@@ -67,14 +67,13 @@ form button {
 
 
 #velmax {
-    /* text-align: left; */
-    border: 2px dotted;
-    border-color: #fc1111;
-    background-color: #ece8e8;
-    color: black;
+    background-color: #330a67;
+    color: #fff3f3;
     padding: 3px;
-    margin: 11px;
-    font-weight: 600;
+    margin: 40px;
+    font-weight: bolder;
+    font-size: 1.4em;
+    text-shadow: 11px -4px 19px #e4bbff;
 }
 
 #multas {
