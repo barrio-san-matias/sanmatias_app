@@ -90,8 +90,8 @@ export default function PageWithJSbasedForm() {
 
       <div className="footer">
         <div>🌵 Hecho por <a href="mailto:maps@jorgefatta.dev">maps@jorgefatta.dev</a> 🌵</div>
-        <div>☕️ <a href="cafecito.app/defnotjorge">cafecito.app/defnotjorge</a> ☕️</div>
-        <div>versión v0.1.6</div> 
+        <div>☕️ <a href="https://cafecito.app/defnotjorge">invitame un café</a> ☕️</div>
+        <div>v0.1.7</div> 
       </div>
     </div>
   )
