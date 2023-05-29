@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github/jfatta/smbot/internal/localization"
+	"github/jfatta/smbot/localization"
 	"net/http"
 	"strconv"
 )
