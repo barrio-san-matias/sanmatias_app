@@ -31,10 +31,9 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	// prueba de concepto:
 	// si empieza con "lote <numero>" devuelve la ubicacion,
-	// sino tira la consulta a openAI
-	//if update.Message.Text == "/lote 636" {
+	// sino tira la consulta a dialogflow
+	if update.Message.Text == "/lote 636" {
 		msg := tgbotapi.NewVenue(
 			update.Message.Chat.ID,
 			"lote 636",
@@ -49,7 +48,18 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-	//}
+	} else {
+		msg := tgbotapi.NewMessage(
+			update.Message.Chat.ID,
+			fmt.Sprintf(">>> sender: %+v", update.Message.From),
+		)
+
+		_, err = bot.Send(msg)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	}
 
 	fmt.Fprint(w, "OK")
 }
