@@ -15,7 +15,23 @@ const (
 	token_secret = "verify"
 )
 
-type WebhookMessage map[string]interface{}
+//type WebhookMessage map[string]interface{}
+
+type WebhookMessage struct {
+	Entry []struct {
+		Changes []struct {
+			Messages []struct {
+				From      string `json:"from"`
+				ID        string `json:"id"`
+				Timestamp string `json:"timestamp"`
+				Type      string `json:"type"`
+				Text      struct {
+					Body string `json:"body"`
+				} `json:"text"`
+			}
+		}
+	}
+}
 
 func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming request (wa)")
