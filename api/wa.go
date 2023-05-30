@@ -2,8 +2,8 @@ package handler
 
 import (
 	"crypto/hmac"
-	"crypto/sha256"
-	"crypto/subtle"
+	"crypto/sha1"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	webhookSecret = "verify" // Replace with your actual secret token
+	token_secret = "verify"
 )
 
 type WebhookMessage struct {
@@ -23,78 +23,68 @@ type WebhookMessage struct {
 func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming request (wa)")
 
-	if r.Method != "POST" {
+	switch r.Method {
+	case "GET":
+		verifyToken(w, r)
+	case "POST":
+		receiveMessage(w, r)
+	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
 	}
-
-	/***
-	var cfg struct {
-		TelegramToken string `env:"WHATSAPP_TOKEN,required"`
-	}
-	if err := envdecode.StrictDecode(&cfg); err != nil {
-		log.Fatal(err)
-	}
-	***/
-
-	// Verify the webhook secret
-	if !verifyWebhookSecret(r) {
-		log.Println("Webhook secret verification failed")
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	// Parse the request body
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("Failed to read request body:", err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	var webhookData WebhookMessage
-	err = json.Unmarshal(body, &webhookData)
-	if err != nil {
-		log.Println("Failed to parse webhook data:", err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	// Process the incoming message
-	log.Printf("Received message from %s: %s\n", webhookData.From, webhookData.Message)
-
-	// Send a response (optional)
-	response := "Received your message: " + webhookData.Message
-	w.Header().Set("Content-Type", "text/plain")
-	fmt.Fprintf(w, response)
 }
 
-func verifyWebhookSecret(r *http.Request) bool {
-	// Retrieve the X-Hub-Signature header from the request
-	signature := r.Header.Get("X-Hub-Signature")
+func verifyToken(w http.ResponseWriter, r *http.Request) {
+	if r.FormValue("hub.verify_token") == token_secret {
+		w.Write([]byte(r.FormValue("hub.challenge")))
+	} else {
+		w.Write([]byte("Error; wrong verify token"))
+	}
+}
 
-	// Retrieve the request body
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("Failed to read request body:", err)
-		return false
+func receiveMessage(w http.ResponseWriter, r *http.Request) {
+	if r.Body == nil {
+		http.Error(w, "Error reading empty response body", http.StatusBadRequest)
+
+		return
 	}
 
-	// Calculate the expected signature
-	expectedSignature := calculateSignature(body)
+	defer r.Body.Close()
 
-	// Compare the signatures
-	return subtle.ConstantTimeCompare([]byte(signature), []byte(expectedSignature)) == 1
+	message, err := ioutil.ReadAll(r.Body)
+
+	if err != nil {
+		http.Error(w, "Error reading response body", http.StatusInternalServerError)
+
+		return
+	}
+
+	// TODO: validate xhub signature
+
+	var msg WebhookMessage
+	err = json.Unmarshal(message, &msg)
+
+	if err != nil {
+		http.Error(w, "Error parsing response body format", http.StatusBadRequest)
+
+		return
+	}
+
+	log.Printf(">>>>> msg: %+v", msg)
 }
 
-func calculateSignature(data []byte) string {
-	secret := []byte(webhookSecret)
-	hash := hmacSHA256(data, secret)
-	return fmt.Sprintf("sha256=%x", hash)
+func verifySignature(signature, secret, message []byte) bool {
+	mac := hmac.New(sha1.New, secret)
+	mac.Write(message)
+
+	expectedSignature := mac.Sum(nil)
+
+	return hmac.Equal(expectedSignature, hexSignature(signature))
 }
 
-func hmacSHA256(data, key []byte) []byte {
-	h := hmac.New(sha256.New, key)
-	h.Write(data)
-	return h.Sum(nil)
+func hexSignature(signature []byte) []byte {
+	s := make([]byte, 20)
+
+	hex.Decode(s, signature)
+
+	return s
 }
