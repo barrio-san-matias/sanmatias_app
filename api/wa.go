@@ -20,14 +20,16 @@ const (
 type WebhookMessage struct {
 	Entry []struct {
 		Changes []struct {
-			Messages []struct {
-				From      string `json:"from"`
-				ID        string `json:"id"`
-				Timestamp string `json:"timestamp"`
-				Type      string `json:"type"`
-				Text      struct {
-					Body string `json:"body"`
-				} `json:"text"`
+			Value struct {
+				Messages []struct {
+					From      string `json:"from"`
+					ID        string `json:"id"`
+					Timestamp string `json:"timestamp"`
+					Type      string `json:"type"`
+					Text      struct {
+						Body string `json:"body"`
+					} `json:"text"`
+				}
 			}
 		}
 	}
