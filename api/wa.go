@@ -15,10 +15,7 @@ const (
 	token_secret = "verify"
 )
 
-type WebhookMessage struct {
-	From    string `json:"from"`
-	Message string `json:"message"`
-}
+type WebhookMessage map[string]interface{}
 
 func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming request (wa)")
@@ -65,11 +62,12 @@ func receiveMessage(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, "Error parsing response body format", http.StatusBadRequest)
-
 		return
 	}
 
 	log.Printf(">>>>> msg: %+v", msg)
+	fmt.Fprint(w, "OK")
+
 }
 
 func verifySignature(signature, secret, message []byte) bool {
