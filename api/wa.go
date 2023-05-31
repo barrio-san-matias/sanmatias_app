@@ -1,14 +1,17 @@
 package handler
 
 import (
-	"crypto/hmac"
-	"crypto/sha1"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 const (
@@ -17,90 +20,64 @@ const (
 
 //type WebhookMessage map[string]interface{}
 
-type WebhookMessage struct {
-	Entry []struct {
-		Changes []struct {
-			Value struct {
-				Messages []struct {
-					From      string `json:"from"`
-					ID        string `json:"id"`
-					Timestamp string `json:"timestamp"`
-					Type      string `json:"type"`
-					Text      struct {
-						Body string `json:"body"`
-					} `json:"text"`
-				}
-			}
+func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
+	// Set your Twilio Account SID and Auth Token
+	accountSid := "YOUR_TWILIO_ACCOUNT_SID"
+	authToken := "YOUR_TWILIO_AUTH_TOKEN"
+
+	// Create a new Twilio client
+	client := twilio.NewRestClient(accountSid, authToken)
+
+	// Get the country from the request body
+	err := r.ParseForm()
+	if err != nil {
+		log.Println("Failed to parse form data:", err)
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+	country := r.FormValue("Body")
+
+	// Retrieve data from the API
+	resp, err := client.Get(fmt.Sprintf("https://restcountries.eu/rest/v2/name/%s?fullText=true", country), nil)
+	if err != nil {
+		log.Println("Failed to retrieve data from API:", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Create a new TwiML response
+	response := api.NewMessageResponse()
+
+	// Check the response status code
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		log.Printf("Failed to retrieve data for the following country - %s. Here is a more verbose reason: %s\n", country, resp.Status)
+		response.SetBody("Sorry we could not process your request. Please try again or check a different country")
+	} else {
+		// Parse the response JSON
+		var data []map[string]interface{}
+		err = json.NewDecoder(resp.Body).Decode(&data)
+		if err != nil {
+			log.Println("Failed to decode JSON:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		if len(data) > 0 {
+			countryData := data[0]
+			nativeName := countryData["nativeName"].(string)
+			capital := countryData["capital"].(string)
+			people := countryData["demonym"].(string)
+			region := countryData["region"].(string)
+
+			response.SetBody(fmt.Sprintf("%s is a country in %s. Its capital city is %s, while its native name is %s. A person from %s is called a %s.", country, region, capital, nativeName, country, people))
+		} else {
+			response.SetBody("No data found for the specified country")
 		}
 	}
-}
 
-func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("incoming request (wa)")
-
-	switch r.Method {
-	case "GET":
-		verifyToken(w, r)
-	case "POST":
-		receiveMessage(w, r)
-	default:
-		w.WriteHeader(http.StatusMethodNotAllowed)
-	}
-}
-
-func verifyToken(w http.ResponseWriter, r *http.Request) {
-	if r.FormValue("hub.verify_token") == token_secret {
-		w.Write([]byte(r.FormValue("hub.challenge")))
-	} else {
-		w.Write([]byte("Error; wrong verify token"))
-	}
-}
-
-func receiveMessage(w http.ResponseWriter, r *http.Request) {
-	if r.Body == nil {
-		http.Error(w, "Error reading empty response body", http.StatusBadRequest)
-
-		return
-	}
-
-	defer r.Body.Close()
-
-	message, err := ioutil.ReadAll(r.Body)
-
-	if err != nil {
-		http.Error(w, "Error reading response body", http.StatusInternalServerError)
-
-		return
-	}
-
-	// TODO: validate xhub signature
-
-	var msg WebhookMessage
-	err = json.Unmarshal(message, &msg)
-
-	if err != nil {
-		http.Error(w, "Error parsing response body format", http.StatusBadRequest)
-		return
-	}
-
-	log.Printf(">>>>> msg: %+v", msg)
-	fmt.Fprint(w, "OK")
-
-}
-
-func verifySignature(signature, secret, message []byte) bool {
-	mac := hmac.New(sha1.New, secret)
-	mac.Write(message)
-
-	expectedSignature := mac.Sum(nil)
-
-	return hmac.Equal(expectedSignature, hexSignature(signature))
-}
-
-func hexSignature(signature []byte) []byte {
-	s := make([]byte, 20)
-
-	hex.Decode(s, signature)
-
-	return s
+	// Write the response
+	w.Header().Set("Content-Type", "application/xml")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(response.String()))
 }
