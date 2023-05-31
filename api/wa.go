@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/joeshaw/envdecode"
-	"github.com/twilio/twilio-go"
-	twilioApi "github.com/twilio/twilio-go/rest/api/v2010"
+
+	"github.com/twilio/twilio-go/twiml"
 )
 
 func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,32 +18,18 @@ func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	// Set your Twilio Account SID and Auth Token
-	accountSid := cfg.TwilioSID
-	authToken := cfg.TwilioToken
-
-	// Create a new Twilio client
-	client := twilio.NewRestClientWithParams(twilio.ClientParams{
-		Username: accountSid,
-		Password: authToken,
-	})
-
-	// Get the country from the request body
-	err := r.ParseForm()
-	if err != nil {
-		log.Println("Failed to parse form data:", err)
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
+	message := &twiml.MessagingMessage{
+		Body: "The Robots are coming! Head for the hills!",
 	}
-	country := r.FormValue("Body")
 
-	// Create a new TwiML response
-	response := twilioApi.NewMessageResponse()
-
-	response.SetBody("HI!!!!!")
+	twimlResult, err := twiml.Messages([]twiml.Element{message})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+	}
 
 	// Write the response
-	w.Header().Set("Content-Type", "application/xml")
+	w.Header().Set("Content-Type", "text/xml")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(response.String()))
+	w.Write([]byte(twimlResult))
 }
