@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -18,8 +19,15 @@ func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	r.ParseForm() // Parses the request body
+	from := r.Form.Get("From")
+	log.Printf(">>>> FROM: %s\n", from)
+
+	body := r.Form.Get("Body")
+	log.Printf(">>>> BODY: %s\n", body)
+
 	message := &twiml.MessagingMessage{
-		Body: "The Robots are coming! Head for the hills!",
+		Body: fmt.Sprintf("Hi %s, The Robots are coming! Head for the hills!", from),
 	}
 
 	twimlResult, err := twiml.Messages([]twiml.Element{message})
