@@ -27,7 +27,7 @@ func WhatsAppHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf(">>>> BODY: %s\n", body)
 
 	message := &twiml.MessagingMessage{
-		Body: fmt.Sprintf("Hola %s 👋🏻 estoy en desarrollo. Por ahora no puedo responder ninguna pregunta.", from),
+		Body: fmt.Sprintf("Hola %s 👋🏻. Soy el bot de San Matías 🦉 pero todavía estoy en etapa de desarrollo, por ahora no puedo responder ninguna pregunta.", from),
 	}
 
 	twimlResult, err := twiml.Messages([]twiml.Element{message})
