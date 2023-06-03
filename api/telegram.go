@@ -31,10 +31,12 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	redisPassword, _ := redisUrl.User.Password()
+	redisUser := redisUrl.User.Username()
 
 	opt := redis.Options{
 		Addr:     redisUrl.Host,
 		Password: redisPassword,
+		Username: redisUser,
 		DB:       0,
 	}
 
@@ -42,7 +44,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = rdb.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
-		log.Fatalf(">>> REDIS ERROR: %+v", err)
+		log.Fatalf(">>> REDIS ERROR: %+v. Usr: %s, Pwd: %s, Host: %s", err, redisUser, redisPassword, redisUrl.Host)
 	}
 
 	bot, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
