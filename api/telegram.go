@@ -54,6 +54,13 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Sprintf(">>> sender: %+v\n, update:%+v", update.Message.From, update),
 		)
 
+		msg.ReplyMarkup = tgbotapi.NewReplyKeyboard(
+			tgbotapi.NewKeyboardButtonRow(
+				tgbotapi.KeyboardButton{
+					Text:           "compartir numero?",
+					RequestContact: true,
+				}))
+
 		_, err = bot.Send(msg)
 		if err != nil {
 			log.Fatal(err)
