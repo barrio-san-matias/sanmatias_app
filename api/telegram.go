@@ -56,6 +56,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	/**
 	if update.CallbackQuery != nil {
 		msg := tgbotapi.NewCallback(update.CallbackQuery.ID, "gracias")
 		_, err = bot.Send(msg)
@@ -63,6 +64,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 	}
+	**/
 
 	u, err := upsertUser(ctx, kv, update)
 	if err != nil {
@@ -106,13 +108,15 @@ func getContactRequestMessage(update *tgbotapi.Update) tgbotapi.MessageConfig {
 		update.Message.Chat.ID,
 		"Bienvenido al Bot de San Matias. Solo vecinos certificados.")
 
-	msg.ReplyMarkup = tgbotapi.NewReplyKeyboard(
+	kb := tgbotapi.NewReplyKeyboard(
 		tgbotapi.NewKeyboardButtonRow(
 			tgbotapi.KeyboardButton{
 				Text:           "compartir numero?",
 				RequestContact: true,
 			}))
 
+	kb.OneTimeKeyboard = true
+	msg.ReplyMarkup = kb
 	return msg
 }
 
