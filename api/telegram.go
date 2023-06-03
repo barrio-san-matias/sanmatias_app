@@ -56,7 +56,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	if update.Message.Contact != nil {
+	if update.CallbackQuery != nil {
 		msg := tgbotapi.NewCallback(update.CallbackQuery.ID, "gracias")
 		_, err = bot.Send(msg)
 		if err != nil {
