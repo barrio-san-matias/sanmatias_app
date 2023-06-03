@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joeshaw/envdecode"
@@ -24,12 +25,21 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 
 	ctx := context.Background()
 
-	opt, err := redis.ParseURL(cfg.KVUrl)
+	redisUrl, err := url.Parse(cfg.KVUrl)
 	if err != nil {
-		panic(err)
+		log.Fatalf(">>> REDIS Url Parse: %+v", err)
 	}
 
-	rdb := redis.NewClient(opt)
+	redisPassword, _ := redisUrl.User.Password()
+
+	opt := redis.Options{
+		Addr:     redisUrl.Host,
+		Password: redisPassword,
+		DB:       0,
+	}
+
+	rdb := redis.NewClient(&opt)
+
 	err = rdb.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
 		log.Fatalf(">>> REDIS ERROR: %+v", err)
