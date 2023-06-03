@@ -156,7 +156,8 @@ func upsertUser(ctx context.Context, kv *redis.Client, update *tgbotapi.Update) 
 
 	if user == (User{}) {
 		user = User{
-			Id: id,
+			Id:         id,
+			CreateTime: Now(),
 		}
 	}
 
@@ -164,10 +165,19 @@ func upsertUser(ctx context.Context, kv *redis.Client, update *tgbotapi.Update) 
 		user.Phone = update.Message.Contact.PhoneNumber
 	}
 
-	user.UpdateTime = time.Now()
+	user.UpdateTime = Now()
 
 	// save user
 	kv.HSet(ctx, id, user)
 
 	return &user, nil
+}
+
+func Now() time.Time {
+	loc, err := time.LoadLocation("America/Argentina/Buenos_Aires")
+	if err != nil {
+		panic(err)
+	}
+
+	return time.Now().In(loc)
 }
