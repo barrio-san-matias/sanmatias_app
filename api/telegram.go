@@ -31,6 +31,8 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	fmt.Printf(">>>>>>> UPDATE: %+v\n", update)
+
 	// si empieza con "lote <numero>" devuelve la ubicacion,
 	// sino tira la consulta a dialogflow
 	if update.Message.Text == "/lote 636" {
