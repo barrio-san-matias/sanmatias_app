@@ -18,6 +18,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	var cfg struct {
 		TelegramToken string `env:"TELEGRAM_TOKEN,required"`
 		KVUrl         string `env:"KV_URL,required"`
+		KVToken       string `env:"KV_REST_API_TOKEN,required"`
 	}
 	if err := envdecode.StrictDecode(&cfg); err != nil {
 		log.Fatal(err)
@@ -35,8 +36,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 
 	opt := redis.Options{
 		Addr:     redisUrl.Host,
-		Password: redisPassword,
-		Username: redisUser,
+		Password: cfg.TelegramToken,
 		DB:       0,
 	}
 
