@@ -36,7 +36,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 
 	opt := redis.Options{
 		Addr:     redisUrl.Host,
-		Password: cfg.TelegramToken,
+		Password: cfg.KVToken,
 		DB:       0,
 	}
 
