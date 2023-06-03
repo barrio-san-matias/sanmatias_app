@@ -51,7 +51,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		msg := tgbotapi.NewMessage(
 			update.Message.Chat.ID,
-			fmt.Sprintf(">>> sender: %+v", update.Message.From),
+			fmt.Sprintf(">>> sender: %+v\n, update:%+v", update.Message.From, update),
 		)
 
 		_, err = bot.Send(msg)
