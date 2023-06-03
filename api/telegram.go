@@ -24,7 +24,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := rdb.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
-		panic(err)
+		log.Fatalf(">>> REDIS ERROR: %+v", err)
 	}
 
 	var cfg struct {
