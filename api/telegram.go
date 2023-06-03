@@ -56,8 +56,6 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	fmt.Fprint(w, "OK")
-
 	u, err := upsertUser(ctx, kv, update)
 	if err != nil {
 		panic(err)
@@ -70,6 +68,8 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Fprint(w, "OK")
+
 		return
 	}
 
@@ -79,6 +79,8 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Fprint(w, "OK")
+
 		return
 	}
 
@@ -88,6 +90,7 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Fprint(w, "OK")
 }
 
 func getContactRequestMessage(update *tgbotapi.Update) tgbotapi.MessageConfig {
