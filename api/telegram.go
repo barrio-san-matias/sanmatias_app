@@ -14,25 +14,25 @@ import (
 func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("incoming request")
 
-	ctx := context.Background()
-
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-
-	err := rdb.Set(ctx, "key", "value", 0).Err()
-	if err != nil {
-		log.Fatalf(">>> REDIS ERROR: %+v", err)
-	}
-
 	var cfg struct {
 		TelegramToken string `env:"TELEGRAM_TOKEN,required"`
 		KVUrl         string `env:"KV_URL,required"`
 	}
 	if err := envdecode.StrictDecode(&cfg); err != nil {
 		log.Fatal(err)
+	}
+
+	ctx := context.Background()
+
+	opt, err := redis.ParseURL(cfg.KVUrl)
+	if err != nil {
+		panic(err)
+	}
+
+	rdb := redis.NewClient(opt)
+	err = rdb.Set(ctx, "key", "value", 0).Err()
+	if err != nil {
+		log.Fatalf(">>> REDIS ERROR: %+v", err)
 	}
 
 	bot, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
