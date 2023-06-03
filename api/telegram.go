@@ -19,7 +19,7 @@ type User struct {
 	Phone    string `redis:"phone"`
 	Name     string `redis:"name"`
 	LastName string `redis:"last_name"`
-	Username string `redis:"username"`
+	UserName string `redis:"user_name"`
 
 	CertifiedTime time.Time `redis:"certified_time"`
 
@@ -54,6 +54,14 @@ func TelegramHandler(w http.ResponseWriter, r *http.Request) {
 	update, err := bot.HandleUpdate(r)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if update.Message.Contact != nil {
+		msg := tgbotapi.NewCallback(update.CallbackQuery.ID, "gracias")
+		_, err = bot.Send(msg)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	u, err := upsertUser(ctx, kv, update)
@@ -166,6 +174,9 @@ func upsertUser(ctx context.Context, kv *redis.Client, update *tgbotapi.Update) 
 	}
 
 	user.UpdateTime = Now()
+	user.UserName = update.Message.From.UserName
+	user.Name = update.Message.From.FirstName
+	user.LastName = update.Message.From.LastName
 
 	// save user
 	kv.HSet(ctx, id, user)
