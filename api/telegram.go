@@ -145,14 +145,14 @@ func upsertUser(ctx context.Context, kv *redis.Client, update *tgbotapi.Update) 
 
 	id := fmt.Sprint(update.Message.From.ID)
 
-	var user *User = &User{}
+	var user User
 	// Scan all fields into the model.
 	if err := kv.HGetAll(ctx, id).Scan(&user); err != nil {
 		return nil, err
 	}
 
-	if user == nil {
-		user = &User{
+	if user == (User{}) {
+		user = User{
 			Id: id,
 		}
 	}
@@ -166,5 +166,5 @@ func upsertUser(ctx context.Context, kv *redis.Client, update *tgbotapi.Update) 
 	// save user
 	kv.HSet(ctx, id, user)
 
-	return user, nil
+	return &user, nil
 }
