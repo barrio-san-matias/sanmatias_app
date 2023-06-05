@@ -51,17 +51,12 @@ export default function PageWithJSbasedForm() {
       <h1 className={styles.title}>
         Mapa de San Matías
       </h1>
-    <div id="logo">
-          <Image alt="logo sm" src={logosm} width={100} height={50} />
-    </div>
+      <h4>
+      nota: herramienta privada no asociada a la administración, desarrolladores, o comisión de vecinos del barrio San Matías. Consultas: <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a>
+      </h4>
 
       <div className={styles.description}>
         <div id={styles.pregunta}> A qué lote vas? </div>
-        <div id="velmax">
-          <span id="multas">⚠️  Evitá multas, velocidad máxima:</span>
-          <span id="autos">🚙 Autos: boulevard <span className="km">50</span> - calles <span className="km">30</span></span>
-          <span id="camiones">🚚 Camiones: boulevard <span className="km">30</span> - calles <span className="km">20</span></span>
-        </div>
       </div>
 
       <form onSubmit={searchLote}>
