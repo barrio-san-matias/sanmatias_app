@@ -50,8 +50,8 @@ export default function PageWithJSbasedForm() {
       </Head>
       <h1 className={styles.title}>
         Mapa de San Matías
-      </h1 className={styles.dislaimer}>
-      <h4>
+      </h1>
+      <h4 className={styles.dislaimer}>
       nota: <b>herramienta privada no asociada</b> a la administración, desarrolladores, o comisión de vecinos del barrio San Matías. <br>
               Consultas: <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a>
       </h4>
