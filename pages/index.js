@@ -49,7 +49,7 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-        Mapa de San Matías
+      🏴 Mapa de San Matías 🇦🇷
       </h1>
       <h4 className={styles.disclaimer}>
       nota: <b>herramienta privada no asociada</b> a la administración, desarrolladores, o comisión de vecinos del barrio San Matías. <br />
@@ -85,9 +85,9 @@ export default function PageWithJSbasedForm() {
       </div>
 
       <div className="footer">
-        <div>🌵 Hecho por <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a> 🌵</div>
-        <div>☕️ <a href="https://cafecito.app/defnotjorge">invitame un café</a> ☕️</div>
-        <div>v0.1.7</div> 
+        <div>🏴 Hecho por <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a> 🇦🇷 </div>
+        <div><a href="https://cafecito.app/defnotjorge">invitame un café</a></div>
+        <div>v1.0.0</div> 
       </div>
     </div>
   )
