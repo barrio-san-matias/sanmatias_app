@@ -49,7 +49,7 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-      🏴 Mapa de San Matías 🇦🇷
+      🌳 Mapa de San Matías 🇦🇷
       </h1>
       <h4 className={styles.disclaimer}>
       nota: <b>herramienta privada no asociada</b> a la administración, desarrolladores, o comisión de vecinos del barrio San Matías. <br />
