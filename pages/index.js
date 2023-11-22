@@ -52,8 +52,7 @@ export default function PageWithJSbasedForm() {
       🌳 Mapa de San Matías 🇦🇷
       </h1>
       <h4 className={styles.disclaimer}>
-      nota: <b>herramienta privada no asociada</b> a la administración, desarrolladores, o comisión de vecinos del barrio San Matías. <br />
-              Consultas: <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a>
+      by <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a>
       </h4>
 
       <div className={styles.description}>
