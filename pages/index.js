@@ -6,16 +6,32 @@ import Image from 'next/image'
 import {useState} from 'react'
 
 
+import RadioGroup from '../components/RadioGroup';
 
 export default function PageWithJSbasedForm() {
   const [clickedButton, setClickedButton] = useState(null);
+
+  // State to keep track of the selected value in the app
+  const [selectedValue, setSelectedValue] = useState('google');
 
   const handleButtonClick = (e) => {
     setClickedButton(e.target.className);
   };
 
+  // Handler function to update the selected value in the app
+  const handleSelectedValueChange = (value) => {
+    // Update the selected value in the app state
+    setSelectedValue(value);
+  };
+
+
   const searchLote = async (event) => {
     event.preventDefault()
+
+    //const selectedValue = radioGroupRef.current.getSelectedOption();
+    
+    // Do something with the selected value in the app
+    console.log('Selected value in the app:', selectedValue);
 
     const response = await fetch(`/api/map?lote=${event.target.lote.value}&map-type=${clickedButton}`, {
       headers: {
@@ -69,10 +85,21 @@ export default function PageWithJSbasedForm() {
         <div id={styles.pregunta}> A qué lote vas? </div>
       </div>
 
+    <RadioGroup selectedOption={selectedValue} onOptionChange={handleSelectedValueChange} />
+
+
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
-        <button onClick={handleButtonClick} type="submit" className="google" >buscar (google maps)</button>
-        <button onClick={handleButtonClick} type="submit" className="waze">buscar (waze)</button>
+      <div className="maptypes">
+        <button onClick={handleButtonClick} type="submit" className="google">
+          <span>buscar</span>
+          <span>(google maps)</span>
+        </button>
+        <button onClick={handleButtonClick} type="submit" className="waze">
+          <span>buscar</span>
+          <span>(waze maps)</span>
+      </button>
+      </div>
       </form>
 
       <div className="poiContainer">
@@ -97,7 +124,7 @@ export default function PageWithJSbasedForm() {
       <div className="footer">
         <div> Hecho por <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a> </div>
         
-        <div>v1.0.0</div> 
+        <div>v1.1.0</div> 
         <div><a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
      </div>
        </div>

@@ -44,8 +44,14 @@ form input {
 
 form button {
     font-size: 26px;
-    width: 90%;
+    width: 40%;
     margin-top: 10px;
+}
+
+.mapTypes {
+      width: 90%;
+
+
 }
 
 .poiContainer {
