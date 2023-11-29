@@ -3,11 +3,21 @@ import styles from '../styles/Home.module.css'
 import logosm from '../public/logosm.png'
 import Image from 'next/image'
 
+import {useState} from 'react'
+
+
 
 export default function PageWithJSbasedForm() {
+  const [clickedButton, setClickedButton] = useState(null);
+
+  const handleButtonClick = (e) => {
+    setClickedButton(e.target.className);
+  };
+
   const searchLote = async (event) => {
     event.preventDefault()
-    const response = await fetch(`/api/map?lote=${event.target.lote.value}`, {
+
+    const response = await fetch(`/api/map?lote=${event.target.lote.value}&map-type=${clickedButton}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -61,7 +71,8 @@ export default function PageWithJSbasedForm() {
 
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
-        <button type="submit">buscar</button>
+        <button onClick={handleButtonClick} type="submit" className="google" >buscar (google maps)</button>
+        <button onClick={handleButtonClick} type="submit" className="waze">buscar (waze)</button>
       </form>
 
       <div className="poiContainer">
