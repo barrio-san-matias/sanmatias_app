@@ -9,14 +9,8 @@ import {useState} from 'react'
 import RadioGroup from '../components/RadioGroup';
 
 export default function PageWithJSbasedForm() {
-  const [clickedButton, setClickedButton] = useState(null);
-
   // State to keep track of the selected value in the app
   const [selectedValue, setSelectedValue] = useState('google');
-
-  const handleButtonClick = (e) => {
-    setClickedButton(e.target.className);
-  };
 
   // Handler function to update the selected value in the app
   const handleSelectedValueChange = (value) => {
@@ -27,13 +21,10 @@ export default function PageWithJSbasedForm() {
 
   const searchLote = async (event) => {
     event.preventDefault()
-
-    //const selectedValue = radioGroupRef.current.getSelectedOption();
-    
     // Do something with the selected value in the app
     console.log('Selected value in the app:', selectedValue);
 
-    const response = await fetch(`/api/map?lote=${event.target.lote.value}&map-type=${clickedButton}`, {
+    const response = await fetch(`/api/map?lote=${event.target.lote.value}&map-type=${selectedValue}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,7 +42,7 @@ export default function PageWithJSbasedForm() {
 
   const searchPOI = async (event) => {
     event.preventDefault()
-    const response = await fetch(`/api/map?poi=${event.target.poi.className}`, {
+    const response = await fetch(`/api/map?poi=${event.target.poi.className}&map-type=${selectedValue}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -90,16 +81,9 @@ export default function PageWithJSbasedForm() {
 
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
-      <div className="maptypes">
-        <button onClick={handleButtonClick} type="submit" className="google">
-          <span>buscar</span>
-          <span>(google maps)</span>
+        <button type="submit">
+        Buscar
         </button>
-        <button onClick={handleButtonClick} type="submit" className="waze">
-          <span>buscar</span>
-          <span>(waze maps)</span>
-      </button>
-      </div>
       </form>
 
       <div className="poiContainer">
