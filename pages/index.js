@@ -66,10 +66,10 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-      🌳 Mapa de San Matías 🦉
+      Mapa de San Matías
       </h1>
       <h4 className={styles.disclaimer}>
-        v1.1.0 - <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'>por <b>jorge</b> 🫰</a>
+        v1.1.0 - <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'>por <b>jorge</b></a>
       </h4>
 
     
