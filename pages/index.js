@@ -36,7 +36,7 @@ export default function PageWithJSbasedForm() {
       window.alert(text)
     } else {
     const result = await response.json()
-     window.location.replace(result.MapURL);
+     window.open(result.MapURL, '_blank');
     }
   }
 
@@ -54,7 +54,7 @@ export default function PageWithJSbasedForm() {
       window.alert(text)
     } else {
     const result = await response.json()
-     window.location.replace(result.MapURL);
+      window.open(result.MapURL, '_blank');
     }
   }
 
