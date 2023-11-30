@@ -8,7 +8,7 @@ body {
 }
 
 body {
-   background: -webkit-gradient(linear, left top, left bottom, from(#92bded), to(#c6ad7b)) fixed; 
+   background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#858484)) fixed; 
 }
 
 a {
@@ -33,18 +33,18 @@ form {
 form input {
   text-align: center;
   font-size: 50px;
-  font-family: Inter;
   background: transparent;
   letter-spacing: 5px;
   width: 90%;
   font-weight: 700;
+  border-radius: 9px;
 
 
 }
 
 form button {
     font-size: 26px;
-    width: 40%;
+    width: 90%;
     margin-top: 10px;
 }
 
@@ -66,9 +66,11 @@ form button {
 }
 
 .footer {
-  margin-top: 25px;
-  text-align: center;
-  font-size: 0.8em;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bolder;
+    padding: 10px;
+    margin-top: 20px;
 }
 
 .footer a {

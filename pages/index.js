@@ -66,10 +66,11 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-      Mapa de San Matías
+      maps.SanMatias.app
       </h1>
       <h4 className={styles.disclaimer}>
-        v1.1.0 - <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'>por <b>jorge</b></a>
+         <br/>
+         🚨 respete la velocidad máxima 🚨
       </h4>
 
     
@@ -85,7 +86,7 @@ export default function PageWithJSbasedForm() {
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
         <button type="submit">
-        Buscar
+        buscar
         </button>
       </form>
 
@@ -106,6 +107,12 @@ export default function PageWithJSbasedForm() {
           <button type="submit" id="poi" className="servicios">Área de Servicios</button>
         </form>
       </div>
-     </div>
+
+    <div className="footer">
+    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> hecho por jorge - v1.1.0 </a>
+    <br/>
+    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> ☕ </a>
+    </div>
+    </div>
   )
 }

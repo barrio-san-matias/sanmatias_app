@@ -9,7 +9,7 @@ const RadioGroup = ({ selectedOption, onOptionChange }) => {
 
   return (
     <div>
-    usar:
+    opciones:
     <label>
         <input
           type="radio"
