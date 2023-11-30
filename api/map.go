@@ -6,9 +6,12 @@ import (
 	"github/jfatta/smbot/localization"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
-const drivingPattern = "https://www.google.com/maps/dir/?api=1&destination=%v,%v&travelmode=driving"
+const drivingPatternGoogle = "https://www.google.com/maps/dir/?api=1&destination=%v,%v&travelmode=driving"
+const drivingPatternWaze = "https://www.waze.com/ul?ll=%v,%v&navigate=yes&zoom=17"
+const drivingPatternApple = "http://maps.apple.com/?daddr=%v,%v"
 
 type MapResponse struct {
 	Coords localization.LatLng
@@ -19,38 +22,51 @@ type MapResponse struct {
 func MapHandler(w http.ResponseWriter, r *http.Request) {
 	loteParam := r.URL.Query().Get("lote")
 	poiParam := r.URL.Query().Get("poi")
+	mapType := r.URL.Query().Get("map-type")
+
 	if loteParam == "" && poiParam == "" {
-		writeError(w, "paremetro lote o poi es obligatorio", http.StatusBadRequest)
+		writeError(w, "parametro lote o poi es obligatorio", http.StatusBadRequest)
 		return
 	}
 
 	response := &MapResponse{}
+
+	var coords localization.LatLng
+
+	if poiParam != "" {
+		coords = localization.GetPOICoords(poiParam)
+		if coords == (localization.LatLng{}) {
+			writeError(w, "punto de interes no encontrado", http.StatusNotFound)
+			return
+		}
+	}
+
 	if loteParam != "" {
 		numLote, err := strconv.ParseInt(loteParam, 10, 16)
 		if err != nil {
-			writeError(w, "paremetro lote debe ser un numero valido", http.StatusBadRequest)
+			writeError(w, "parametro lote debe ser un numero valido", http.StatusBadRequest)
 			return
 		}
 
-		coords := localization.GetCoords(int16(numLote))
+		coords = localization.GetCoords(int16(numLote))
 		if coords == (localization.LatLng{}) {
 			writeError(w, "lote no encontrado", http.StatusNotFound)
 			return
 		}
 
-		response.Coords = coords
-		response.MapURL = fmt.Sprintf(drivingPattern, coords.Latitude, coords.Longitude)
 	}
 
-	if poiParam != "" {
-		coords := localization.GetPOICoords(poiParam)
-		if coords == (localization.LatLng{}) {
-			writeError(w, "punto de interes no encontrado", http.StatusNotFound)
-			return
-		}
+	response.Coords = coords
+	response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 
-		response.Coords = coords
-		response.MapURL = fmt.Sprintf(drivingPattern, coords.Latitude, coords.Longitude)
+	response.Coords = coords
+	switch strings.ToLower(mapType) {
+	case "waze":
+		response.MapURL = fmt.Sprintf(drivingPatternWaze, coords.Latitude, coords.Longitude)
+	case "apple":
+		response.MapURL = fmt.Sprintf(drivingPatternApple, coords.Latitude, coords.Longitude)
+	default:
+		response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 	}
 
 	writeResponse(w, response)
