@@ -30,6 +30,17 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := &MapResponse{}
+
+	var coords localization.LatLng
+
+	if poiParam != "" {
+		coords = localization.GetPOICoords(poiParam)
+		if coords == (localization.LatLng{}) {
+			writeError(w, "punto de interes no encontrado", http.StatusNotFound)
+			return
+		}
+	}
+
 	if loteParam != "" {
 		numLote, err := strconv.ParseInt(loteParam, 10, 16)
 		if err != nil {
@@ -37,31 +48,24 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		coords := localization.GetCoords(int16(numLote))
+		coords = localization.GetCoords(int16(numLote))
 		if coords == (localization.LatLng{}) {
 			writeError(w, "lote no encontrado", http.StatusNotFound)
 			return
 		}
 
-		response.Coords = coords
-		switch strings.ToLower(mapType) {
-		case "waze":
-			response.MapURL = fmt.Sprintf(drivingPatternWaze, coords.Latitude, coords.Longitude)
-		case "apple":
-			response.MapURL = fmt.Sprintf(drivingPatternApple, coords.Latitude, coords.Longitude)
-		default:
-			response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
-		}
 	}
 
-	if poiParam != "" {
-		coords := localization.GetPOICoords(poiParam)
-		if coords == (localization.LatLng{}) {
-			writeError(w, "punto de interes no encontrado", http.StatusNotFound)
-			return
-		}
+	response.Coords = coords
+	response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 
-		response.Coords = coords
+	response.Coords = coords
+	switch strings.ToLower(mapType) {
+	case "waze":
+		response.MapURL = fmt.Sprintf(drivingPatternWaze, coords.Latitude, coords.Longitude)
+	case "apple":
+		response.MapURL = fmt.Sprintf(drivingPatternApple, coords.Latitude, coords.Longitude)
+	default:
 		response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 	}
 
