@@ -49,9 +49,9 @@ form button {
 }
 
 .mapTypes {
-      width: 90%;
-
-
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .poiContainer {

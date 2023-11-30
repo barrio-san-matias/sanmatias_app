@@ -10,8 +10,8 @@ import (
 )
 
 const drivingPatternGoogle = "https://www.google.com/maps/dir/?api=1&destination=%v,%v&travelmode=driving"
-
 const drivingPatternWaze = "https://www.waze.com/ul?ll=%v,%v&navigate=yes&zoom=17"
+const drivingPatternApple = "http://maps.apple.com/?daddr=%v,%v"
 
 type MapResponse struct {
 	Coords localization.LatLng
@@ -47,6 +47,8 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 		switch strings.ToLower(mapType) {
 		case "waze":
 			response.MapURL = fmt.Sprintf(drivingPatternWaze, coords.Latitude, coords.Longitude)
+		case "apple":
+			response.MapURL = fmt.Sprintf(drivingPatternApple, coords.Latitude, coords.Longitude)
 		default:
 			response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 		}

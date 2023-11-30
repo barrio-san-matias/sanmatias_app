@@ -66,18 +66,21 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-      🌳 Mapa de San Matías 🇦🇷
+      🌳 Mapa de San Matías 🦉
       </h1>
       <h4 className={styles.disclaimer}>
-      by <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a>
+        v1.1.0 - <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'>por <b>jorge</b> 🫰</a>
       </h4>
+
+    
+    <div className="mapTypes">
+     <RadioGroup selectedOption={selectedValue} onOptionChange={handleSelectedValueChange} />
+    </div>
+
 
       <div className={styles.description}>
         <div id={styles.pregunta}> A qué lote vas? </div>
       </div>
-
-    <RadioGroup selectedOption={selectedValue} onOptionChange={handleSelectedValueChange} />
-
 
       <form onSubmit={searchLote}>
         <input type="number" id="lote" name="lote" required placeholder="número"/>
@@ -102,16 +105,7 @@ export default function PageWithJSbasedForm() {
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="servicios">Área de Servicios</button>
         </form>
-
       </div>
-
-      <div className="footer">
-        <div> Hecho por <a href="mailto:hi@jorgefatta.dev">hi@jorgefatta.dev</a> </div>
-        
-        <div>v1.1.0</div> 
-        <div><a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
      </div>
-       </div>
-    </div>
   )
 }

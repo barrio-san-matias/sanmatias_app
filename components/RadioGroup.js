@@ -9,6 +9,7 @@ const RadioGroup = ({ selectedOption, onOptionChange }) => {
 
   return (
     <div>
+    usar:
     <label>
         <input
           type="radio"
@@ -17,11 +18,8 @@ const RadioGroup = ({ selectedOption, onOptionChange }) => {
           onChange={handleOptionChange}
         />
         Google Maps
-      </label>
-
-
-
-      <label>
+    </label>
+    <label>
         <input
           type="radio"
           value="waze"
@@ -29,7 +27,17 @@ const RadioGroup = ({ selectedOption, onOptionChange }) => {
           onChange={handleOptionChange}
         />
         Waze
-      </label>
+    </label>
+    <label>
+        <input
+          type="radio"
+          value="apple"
+          checked={selectedOption === 'apple'}
+          onChange={handleOptionChange}
+        />
+        Apple Maps
+    </label>
+
     </div>
   );
 };
