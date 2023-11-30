@@ -36,7 +36,7 @@ export default function PageWithJSbasedForm() {
       window.alert(text)
     } else {
     const result = await response.json()
-     window.open(result.MapURL, '_blank');
+     window.location.replace(result.MapURL);
     }
   }
 
@@ -51,10 +51,10 @@ export default function PageWithJSbasedForm() {
 
     if (!response.ok) {
       const text = await response.text()
-      window.alert(text)
+      window.location.replace(result.MapURL);
     } else {
     const result = await response.json()
-      window.open(result.MapURL, '_blank');
+     window.location.replace(result.MapURL);
     }
   }
 
