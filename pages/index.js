@@ -111,7 +111,7 @@ export default function PageWithJSbasedForm() {
     <div className="footer">
     <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> hecho por jorge - v1.1.0 </a>
     <br/>
-    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> ☕ </a>
+    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> invitame un ☕ </a>
     </div>
     </div>
   )
