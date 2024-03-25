@@ -62,5 +62,6 @@ export default function PageWithJSbasedForm() {
     hola@jorgefatta.dev - v1.1.1 </a>
     <br/>
     </div>
+    </div>
   )
 }
