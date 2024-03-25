@@ -59,7 +59,7 @@ export default function PageWithJSbasedForm() {
 
 
     <div className="footer">
-    hola@jorgefatta.dev - v1.1.1 </a>
+    hola@jorgefatta.dev - v1.1.1
     <br/>
     </div>
     </div>
