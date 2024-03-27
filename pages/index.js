@@ -66,12 +66,9 @@ export default function PageWithJSbasedForm() {
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
       </Head>
       <h1 className={styles.title}>
-      maps.SanMatias.app
+      maps.sanmatias.app
       </h1>
-      <h4 className={styles.disclaimer}>
-         <br/>
-         🚨 respete la velocidad máxima 🚨
-      </h4>
+
 
     
     <div className="mapTypes">
@@ -109,9 +106,8 @@ export default function PageWithJSbasedForm() {
       </div>
 
     <div className="footer">
-    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> hecho por jorge - v1.1.0 </a>
+    <a href='mailto:hi@jorgefatta.dev' rel='noopener' target='_blank'> hi@jorgefatta.dev - v1.1.2 </a>
     <br/>
-    <a href='https://cafecito.app/defnotjorge' rel='noopener' target='_blank'> invitame un ☕ </a>
     </div>
     </div>
   )
