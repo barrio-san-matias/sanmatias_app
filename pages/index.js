@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { useState } from "react";
 
@@ -126,6 +127,7 @@ export default function PageWithJSbasedForm() {
         <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.1.2 </a>
       </div>
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
