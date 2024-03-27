@@ -1,16 +1,13 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import logosm from '../public/logosm.png'
-import Image from 'next/image'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
-import {useState} from 'react'
+import { useState } from "react";
 
-
-import RadioGroup from '../components/RadioGroup';
+import RadioGroup from "../components/RadioGroup";
 
 export default function PageWithJSbasedForm() {
   // State to keep track of the selected value in the app
-  const [selectedValue, setSelectedValue] = useState('google');
+  const [selectedValue, setSelectedValue] = useState("google");
 
   // Handler function to update the selected value in the app
   const handleSelectedValueChange = (value) => {
@@ -18,97 +15,114 @@ export default function PageWithJSbasedForm() {
     setSelectedValue(value);
   };
 
-
   const searchLote = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     // Do something with the selected value in the app
-    console.log('Selected value in the app:', selectedValue);
+    console.log("Selected value in the app:", selectedValue);
 
-    const response = await fetch(`/api/map?lote=${event.target.lote.value}&map-type=${selectedValue}`, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `/api/map?lote=${event.target.lote.value}&map-type=${selectedValue}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
       },
-      method: 'GET',
-    })
+    );
 
     if (!response.ok) {
-      const text = await response.text()
-      window.alert(text)
+      const text = await response.text();
+      window.alert(text);
     } else {
-    const result = await response.json()
-     window.location.replace(result.MapURL);
+      const result = await response.json();
+      window.location.replace(result.MapURL);
     }
-  }
+  };
 
   const searchPOI = async (event) => {
-    event.preventDefault()
-    const response = await fetch(`/api/map?poi=${event.target.poi.className}&map-type=${selectedValue}`, {
-      headers: {
-        'Content-Type': 'application/json',
+    event.preventDefault();
+    const response = await fetch(
+      `/api/map?poi=${event.target.poi.className}&map-type=${selectedValue}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
       },
-      method: 'GET',
-    })
+    );
 
     if (!response.ok) {
-      const text = await response.text()
-      window.location.replace(result.MapURL);
+      const text = await response.text();
+      window.alert(text);
     } else {
-    const result = await response.json()
-     window.location.replace(result.MapURL);
+      const result = await response.json();
+      window.location.replace(result.MapURL);
     }
-  }
-
+  };
 
   return (
     <div className="container">
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap" rel="stylesheet"/>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Assistant:wght@200&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      <h1 className={styles.title}>
-      maps.sanmatias.app
-      </h1>
+      <h1 className={styles.title}>maps.sanmatias.app</h1>
 
-
-    
-    <div className="mapTypes">
-     <RadioGroup selectedOption={selectedValue} onOptionChange={handleSelectedValueChange} />
-    </div>
-
+      <div className="mapTypes">
+        <RadioGroup
+          selectedOption={selectedValue}
+          onOptionChange={handleSelectedValueChange}
+        />
+      </div>
 
       <div className={styles.description}>
         <div id={styles.pregunta}> A qué lote vas? </div>
       </div>
 
       <form onSubmit={searchLote}>
-        <input type="number" id="lote" name="lote" required placeholder="número"/>
-        <button type="submit">
-        buscar
-        </button>
+        <input
+          type="number"
+          id="lote"
+          name="lote"
+          required
+          placeholder="número"
+        />
+        <button type="submit">buscar</button>
       </form>
 
       <div className="poiContainer">
-        <p className={styles.descriptionPOI}>
-          otros puntos de interés: 
-        </p>
+        <p className={styles.descriptionPOI}>otros puntos de interés:</p>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="poi" className="buffet">Restaurante y Proveeduría</button>
+          <button type="submit" id="poi" className="buffet">
+            Restaurante y Proveeduría
+          </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="poi" className="sum">SUM</button>
+          <button type="submit" id="poi" className="sum">
+            SUM
+          </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="poi" className="adm">Administración</button>
+          <button type="submit" id="poi" className="adm">
+            Administración
+          </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="poi" className="servicios">Área de Servicios</button>
+          <button type="submit" id="poi" className="servicios">
+            Área de Servicios
+          </button>
         </form>
       </div>
 
-    <div className="footer">
-    <a href='mailto:hi@jorgefatta.dev' rel='noopener' target='_blank'> hi@jorgefatta.dev - v1.1.2 </a>
-    <br/>
+      <div className="footer">
+        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.1.2 </a>
+      </div>
     </div>
-    </div>
-  )
+  );
 }

@@ -1,5 +1,4 @@
 // components/RadioGroup.js
-import { useState } from 'react';
 
 const RadioGroup = ({ selectedOption, onOptionChange }) => {
   const handleOptionChange = (event) => {
@@ -9,38 +8,36 @@ const RadioGroup = ({ selectedOption, onOptionChange }) => {
 
   return (
     <div>
-    opciones:
-    <label>
+      opciones:
+      <label>
         <input
           type="radio"
           value="google"
-          checked={selectedOption === 'google'}
+          checked={selectedOption === "google"}
           onChange={handleOptionChange}
         />
         Google Maps
-    </label>
-    <label>
+      </label>
+      <label>
         <input
           type="radio"
           value="waze"
-          checked={selectedOption === 'waze'}
+          checked={selectedOption === "waze"}
           onChange={handleOptionChange}
         />
         Waze
-    </label>
-    <label>
+      </label>
+      <label>
         <input
           type="radio"
           value="apple"
-          checked={selectedOption === 'apple'}
+          checked={selectedOption === "apple"}
           onChange={handleOptionChange}
         />
         Apple Maps
-    </label>
-
+      </label>
     </div>
   );
 };
 
 export default RadioGroup;
-
