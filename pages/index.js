@@ -1,6 +1,8 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
+import { Analytics } from "@vercel/analytics/react";
+
 import { useState } from "react";
 
 import RadioGroup from "../components/RadioGroup";
@@ -123,6 +125,7 @@ export default function PageWithJSbasedForm() {
       <div className="footer">
         <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.1.2 </a>
       </div>
+      <Analytics />
     </div>
   );
 }
