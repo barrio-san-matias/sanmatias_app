@@ -3,8 +3,7 @@ module github/jfatta/smbot
 go 1.20
 
 require (
-	github.com/davecgh/go-spew v1.1.1
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+	github.com/google/uuid v1.6.0
 	github.com/joeshaw/envdecode v0.0.0-20200121155833-099f1fc765bd
 	github.com/redis/go-redis/v9 v9.0.5
 )
