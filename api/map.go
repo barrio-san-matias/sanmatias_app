@@ -131,9 +131,12 @@ func trace(ctx context.Context, lote string, poi string, mapType string) {
 	apiDB := c.Database("api")
 	events := apiDB.Collection("events")
 
+	loc := lote
+	if loc == "" {
+		loc = poi
+	}
 	_, err = events.InsertOne(ctx, bson.D{
-		{Key: "lote", Value: lote},
-		{Key: "poi", Value: poi},
+		{Key: "loc", Value: loc},
 		{Key: "map_type", Value: mapType},
 		{Key: "create_type", Value: time.Now().UTC()},
 	})
