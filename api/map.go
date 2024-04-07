@@ -85,7 +85,7 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 		response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 	}
 
-	trace(r.Context(), loteParam, poiParam, mapType)
+	trace(r.Context(), loteParam, poiParam, mapType, coords)
 	writeResponse(w, response)
 }
 
@@ -121,7 +121,7 @@ func getMongoClient(ctx context.Context) (*mongo.Client, error) {
 	return client, nil
 }
 
-func trace(ctx context.Context, lote string, poi string, mapType string) {
+func trace(ctx context.Context, lote string, poi string, mapType string, ll localization.LatLng) {
 	c, err := getMongoClient(ctx)
 	if err != nil {
 		log.Fatalf("Error creating MongoDB client: %v", err)
@@ -139,6 +139,10 @@ func trace(ctx context.Context, lote string, poi string, mapType string) {
 		{Key: "loc", Value: loc},
 		{Key: "map_type", Value: mapType},
 		{Key: "create_time", Value: time.Now().UTC()},
+		{Key: "geopoint", Value: bson.M{
+			"type":        "Point",
+			"coordinates": []float64{ll.Longitude, ll.Latitude},
+		}},
 	})
 	if err != nil {
 		log.Fatalf("couldn't send to mongoDB: %v", err)
