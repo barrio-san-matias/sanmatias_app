@@ -40,8 +40,6 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 	poiParam := r.URL.Query().Get("poi")
 	mapType := r.URL.Query().Get("map-type")
 
-	trace(r.Context(), loteParam, poiParam, mapType)
-
 	if loteParam == "" && poiParam == "" {
 		writeError(w, "parametro lote o poi es obligatorio", http.StatusBadRequest)
 		return
@@ -87,6 +85,7 @@ func MapHandler(w http.ResponseWriter, r *http.Request) {
 		response.MapURL = fmt.Sprintf(drivingPatternGoogle, coords.Latitude, coords.Longitude)
 	}
 
+	trace(r.Context(), loteParam, poiParam, mapType)
 	writeResponse(w, response)
 }
 
