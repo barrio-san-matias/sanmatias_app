@@ -138,7 +138,7 @@ func trace(ctx context.Context, lote string, poi string, mapType string) {
 	_, err = events.InsertOne(ctx, bson.D{
 		{Key: "loc", Value: loc},
 		{Key: "map_type", Value: mapType},
-		{Key: "create_type", Value: time.Now().UTC()},
+		{Key: "create_time", Value: time.Now().UTC()},
 	})
 	if err != nil {
 		log.Fatalf("couldn't send to mongoDB: %v", err)
