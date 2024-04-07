@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"github/jfatta/smbot/localization"
@@ -10,20 +9,17 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/joeshaw/envdecode"
-	redis "github.com/redis/go-redis/v9"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const drivingPatternGoogle = "https://www.google.com/maps/dir/?api=1&destination=%v,%v&travelmode=driving"
 const drivingPatternWaze = "https://www.waze.com/ul?ll=%v,%v&navigate=yes&zoom=17"
 const drivingPatternApple = "http://maps.apple.com/?daddr=%v,%v"
-
-var once sync.Once
-var redisClient *redis.Client
 
 type MapResponse struct {
 	Coords localization.LatLng
@@ -109,48 +105,40 @@ func writeResponse(w http.ResponseWriter, response any) {
 	w.Write(res)
 }
 
-func getRedisClient() *redis.Client {
-	once.Do(func() {
-		var cfg struct {
-			KVUrl string `env:"KV_URL,required"`
-		}
+func getMongoClient(ctx context.Context) (*mongo.Client, error) {
+	var cfg struct {
+		MongoUrl string `env:"MONGODB_URI,required"`
+	}
 
-		if err := envdecode.StrictDecode(&cfg); err != nil {
-			log.Fatal(err)
-			return
-		}
+	if err := envdecode.StrictDecode(&cfg); err != nil {
+		return nil, err
+	}
 
-		opt, err := redis.ParseURL(cfg.KVUrl)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(cfg.MongoUrl))
+	if err != nil {
+		return nil, err
+	}
 
-		opt.TLSConfig = &tls.Config{
-			MinVersion: tls.VersionTLS12,
-		}
-
-		redisClient = redis.NewClient(opt)
-	})
-
-	return redisClient
+	return client, nil
 }
 
 func trace(ctx context.Context, lote string, poi string, mapType string) {
-	c := getRedisClient()
-	e := &Event{
-		Id:         uuid.New().String(),
-		Lote:       lote,
-		POI:        poi,
-		MapType:    mapType,
-		CreateTime: time.Now().UTC(),
-	}
-	if c != nil {
-
-		c.HSet(ctx, e.Id, e)
-		return
+	c, err := getMongoClient(ctx)
+	if err != nil {
+		log.Fatalf("Error creating MongoDB client: %v", err)
 	}
 
-	log.Printf("couldn't send to redis: +%v", e)
+	defer c.Disconnect(ctx)
+	apiDB := c.Database("api")
+	events := apiDB.Collection("events")
 
+	_, err = events.InsertOne(ctx, bson.D{
+		{Key: "lote", Value: lote},
+		{Key: "poi", Value: poi},
+		{Key: "map_type", Value: mapType},
+		{Key: "create_type", Value: time.Now().UTC()},
+	})
+	if err != nil {
+		log.Fatalf("couldn't send to mongoDB: %v", err)
+	}
 }
