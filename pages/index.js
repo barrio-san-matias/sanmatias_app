@@ -127,7 +127,7 @@ export default function PageWithJSbasedForm() {
       <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='clv39mlqb000ptke6l3d6khuq' height='600px' width='400px'></zapier-interfaces-chatbot-embed>
             
       <div className="footer">
-        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.1.2 </a>
+        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.2.0 </a> 🤖 ➡️
       </div>
       <Analytics />
       <SpeedInsights />
