@@ -123,6 +123,9 @@ export default function PageWithJSbasedForm() {
         </form>
       </div>
 
+      <script type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+      <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='clv39mlqb000ptke6l3d6khuq' height='600px' width='400px'></zapier-interfaces-chatbot-embed>
+            
       <div className="footer">
         <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.1.2 </a>
       </div>
