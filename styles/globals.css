@@ -73,6 +73,13 @@ form button {
     margin-top: 20px;
 }
 
+.hint {
+  position: absolute;
+  bottom: 30px;
+  right: 70px;
+  font-weight: bolder;
+}
+
 .footer a {
   font-weight: bolder;
 
