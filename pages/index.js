@@ -75,7 +75,7 @@ export default function PageWithJSbasedForm() {
           rel="stylesheet"
         />
       </Head>
-      <h1 className={styles.title}>maps.sanmatias.app</h1>
+      <h1 className={styles.title}>sanmatias.app</h1>
 
       <div className="mapTypes">
         <RadioGroup
@@ -127,7 +127,7 @@ export default function PageWithJSbasedForm() {
       <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='clv39mlqb000ptke6l3d6khuq' height='600px' width='400px'></zapier-interfaces-chatbot-embed>
             
       <div className="footer">
-        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.2.0 </a>
+        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.2.1 </a>
       </div>
       <Analytics />
       <SpeedInsights />
