@@ -131,7 +131,7 @@ export default function PageWithJSbasedForm() {
       </div>
       <Analytics />
       <SpeedInsights />
-      <div className="hint">Preguntale a 🦉 (beta) ➡️ </div>
+      <div className="hint">Preguntale a 🦉 (beta)</div>
     </div>
   );
 }

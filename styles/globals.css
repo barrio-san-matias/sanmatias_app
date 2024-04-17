@@ -75,8 +75,9 @@ form button {
 
 .hint {
   position: absolute;
-  bottom: 18;
-  right: 60;
+  bottom: 30px;
+  right: 70px;
+  font-weight: bolder;
 }
 
 .footer a {
