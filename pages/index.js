@@ -103,28 +103,53 @@ export default function PageWithJSbasedForm() {
         <p className={styles.descriptionPOI}>otros puntos de interés:</p>
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="buffet">
-            Restaurante y Proveeduría
+            Restaurante y Proveeduría 🍽️ 🛒
           </button>
         </form>
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="sum">
-            SUM
+            SUM 🪩
           </button>
         </form>
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="adm">
-            Administración
+            Administración 🏢
+          </button>
+        </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="plaza2">
+            Plaza Área 2 🛝 
+          </button>
+        </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="plaza3">
+            Plaza Área 3 🛝 
+          </button>
+        </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="plaza4">
+            Plaza Área 4 🛝 
           </button>
         </form>
         <form onSubmit={searchPOI}>
           <button type="submit" id="poi" className="servicios">
-            Área de Servicios
+            Área de Servicios ♻️
+          </button>
+        </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="mailroom">
+            Mail Room 📦
+          </button>
+        </form>
+        <form onSubmit={searchPOI}>
+          <button type="submit" id="poi" className="udp">
+            UDP Maschwitz 🏥
           </button>
         </form>
       </div>
    
       <div className="footer">
-        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.2.4 </a>
+        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.3.0 </a>
       </div>
       <Analytics />
       <SpeedInsights />
