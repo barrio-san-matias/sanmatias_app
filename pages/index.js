@@ -149,7 +149,7 @@ export default function PageWithJSbasedForm() {
       </div>
    
       <div className="footer">
-        <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.3.0 </a>
+        by <a href="mailto:hi@jorgefatta.dev"> hi@jorgefatta.dev - v1.3.0 </a>
       </div>
       <Analytics />
       <SpeedInsights />

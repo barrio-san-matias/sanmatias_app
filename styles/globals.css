@@ -3,13 +3,16 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Assistant', sans-serif;
-  background-color: #fafafa;
   height: 100%;
 }
 
-body {
-   background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#858484)) fixed; 
+html,body {
+   background-color:rgb(187, 187, 189);
+   font-family: 'Inter', sans-serif;
+   font-weight: 100;
+   color:#252525;
 }
+
 
 a {
   color: inherit;
