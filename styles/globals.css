@@ -7,8 +7,10 @@ body {
   height: 100%;
 }
 
-body {
-   background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#858484)) fixed; 
+html,body {
+   background-color:ghostwhite;
+   font-family: 'Inter', sans-serif;
+   font-weight: 100;
 }
 
 a {
