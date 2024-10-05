@@ -117,17 +117,17 @@ export default function PageWithJSbasedForm() {
           </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="plaza2" className="plaza2">
+          <button type="submit" id="poi" className="plaza2">
             Plaza Área 2 🛝 
           </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="plaza3" className="plaza3">
+          <button type="submit" id="poi" className="plaza3">
             Plaza Área 3 🛝 
           </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="plaza4" className="plaza4">
+          <button type="submit" id="poi" className="plaza4">
             Plaza Área 4 🛝 
           </button>
         </form>
@@ -137,12 +137,12 @@ export default function PageWithJSbasedForm() {
           </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="mailroom" className="mailroom">
+          <button type="submit" id="poi" className="mailroom">
             Mail Room 📦
           </button>
         </form>
         <form onSubmit={searchPOI}>
-          <button type="submit" id="udp" className="udp">
+          <button type="submit" id="poi" className="udp">
             UDP Maschwitz 🏥
           </button>
         </form>

@@ -26,5 +26,40 @@
       "longitude": -58.7570586, 
       "latitude": -34.3552846 
     } 
+  },
+  { 
+    "name": "plaza2",
+    "coords": { 
+      "longitude": -58.760559, 
+      "latitude": -34.354414 
+    } 
+  },
+  { 
+    "name": "plaza3",
+    "coords": { 
+      "longitude": -58.761281, 
+      "latitude": -34.34994 
+    } 
+  },
+  { 
+    "name": "plaza4",
+    "coords": { 
+      "longitude": -58.758651, 
+      "latitude": -34.343642 
+    } 
+  },
+  { 
+    "name": "mailroom",
+    "coords": { 
+      "longitude": -58.751046, 
+      "latitude": -34.361162 
+    } 
+  },
+  { 
+    "name": "udp",
+    "coords": { 
+      "longitude": -58.7392261, 
+      "latitude": -34.3825718 
+    } 
   }
 ]	
