@@ -58,7 +58,7 @@ func initMongoData() {
 	db := client.Database("api")
 
 	loadLotes(ctx, db.Collection("lotes"))
-	loadPOIs(ctx, db.Collection("pois"))
+	loadPOIs(ctx, db.Collection("poi"))
 }
 
 func loadLotes(ctx context.Context, collection *mongo.Collection) {
