@@ -1,6 +1,7 @@
 # sanmatias.app
 
-Repositorio privado con herramientas para el Barrio San Matia: https://www.sanmatias.app/.
+Repositorio de lherramientas para el Barrio Privado San Matias:
+https://www.sanmatias.app/
 
 ## Roadmap
 
